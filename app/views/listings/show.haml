@@ -125,7 +125,13 @@
             - with_quantity_and_vat_text(@current_community, @listing) do |text|
               %span.listing-price-quantity
                 = text
-
+            .clear
+            -if @listing.half_day_price_cent !=0     
+              %span.listing-price-amount
+                = humanized_money_with_symbol(@listing.half_day).upcase
+              %span.listing-price-quantity
+                = "half-day"
+      
     .row-with-divider
       .col-12
         #listing-message-links
@@ -166,3 +172,4 @@
           #googlemap
             = render :partial => "googlemap", :locals => { :listing => @listing}
             = render :partial => "origin", :locals => { :origin_loc => @listing.origin_loc }
+  

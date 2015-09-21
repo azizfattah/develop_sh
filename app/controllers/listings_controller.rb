@@ -245,7 +245,6 @@ class ListingsController < ApplicationController
     ).merge(unit_to_listing_opts(m_unit)).except(:unit)
 
     @listing = Listing.new(listing_params)
-
     ActiveRecord::Base.transaction do
       @listing.author = @current_user
 
@@ -705,6 +704,8 @@ class ListingsController < ApplicationController
       case k
       when "price"
         hash.merge(:price_cents =>  MoneyUtil.parse_str_to_subunits(v, currency))
+      when "half_day_price_cent"
+        hash.merge(:half_day_price_cent =>  MoneyUtil.parse_str_to_subunits(v, currency))
       when "shipping_price"
         hash.merge(:shipping_price_cents =>  MoneyUtil.parse_str_to_subunits(v, currency))
       when "shipping_price_additional"
