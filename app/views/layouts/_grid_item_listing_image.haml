@@ -18,12 +18,12 @@
 
     .fluid-thumbnail-grid-image-price-container{:class => "#{modifier_class}"}
       - if listing.price
-        %span.fluid-thumbnail-grid-image-price
+        %span.fluid-thumbnail-grid-image-price.per_day_price
           = humanized_money_with_symbol(listing.price).upcase
           - price_unit = price_quantity_slash_unit(listing)
         - if !price_unit.blank?
           - price_text = " " + price_unit
-          %span.fluid-thumbnail-grid-image-quantity{:title => price_text}
+          %span.fluid-thumbnail-grid-image-quantity.per_day_price{:title => price_text}
             = price_text
         
       - else
@@ -31,7 +31,7 @@
           = shape_name(listing)
       %br
       - if listing.half_day_price_cent != 0      
-        %span.fluid-thumbnail-grid-image-price
+        %span.fluid-thumbnail-grid-image-price.half_day_price
           = humanized_money_with_symbol( Money.new(listing.half_day_price_cent || 0, listing.price.currency || "EUR")).upcase
           - price_unit = price_quantity_slash_unit(listing)
         %span.fluid-thumbnail-grid-image-quantity{:title => "half-day"}

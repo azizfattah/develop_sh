@@ -127,7 +127,7 @@
                 = text
             .clear
             -if @listing.half_day_price_cent !=0     
-              %span.listing-price-amount
+              %span.listing-price-amount.half_day_price_show
                 = humanized_money_with_symbol(@listing.half_day).upcase
               %span.listing-price-quantity
                 = "half-day"
