@@ -891,4 +891,23 @@ module ApplicationHelper
       content_for :extra_javascript do js end
     end
   end
+
+  def category_options top_level_categories,subcategories
+    @options=[]
+    top_level_categories.each do |c| 
+      @options << [c.display_name(I18n.locale), c.id]
+      if c.subcategories.present? 
+        c.subcategories.each do |cc| 
+          @options << ["--"+cc.display_name(I18n.locale), cc.id]
+          if cc.subcategories.present?
+            cc.subcategories.each do |ccc|
+              @options << ["----"+ccc.display_name(I18n.locale), ccc.id]
+            end
+          end
+        end
+      end
+    end
+    @options << @category.parent_id
+    @options.compact
+  end
 end

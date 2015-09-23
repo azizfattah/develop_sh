@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150902103231) do
+ActiveRecord::Schema.define(:version => 20150923072843) do
 
   create_table "auth_tokens", :force => true do |t|
     t.string   "token"
@@ -65,11 +65,12 @@ ActiveRecord::Schema.define(:version => 20150902103231) do
   create_table "categories", :force => true do |t|
     t.integer  "parent_id"
     t.string   "icon"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.integer  "community_id"
     t.integer  "sort_priority"
     t.string   "url"
+    t.boolean  "show_on_homepage", :default => true
   end
 
   add_index "categories", ["community_id"], :name => "index_categories_on_community_id"
@@ -551,6 +552,7 @@ ActiveRecord::Schema.define(:version => 20150902103231) do
     t.boolean  "pickup_enabled",                                :default => false
     t.integer  "shipping_price_cents"
     t.integer  "shipping_price_additional_cents"
+    t.integer  "half_day_price_cent"
   end
 
   add_index "listings", ["category_id"], :name => "index_listings_on_new_category_id"

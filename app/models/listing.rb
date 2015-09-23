@@ -47,7 +47,6 @@
 #  shipping_price_cents            :integer
 #  shipping_price_additional_cents :integer
 #  half_day_price_cent             :integer
-#  half_day_unit                   :string(255)
 #
 # Indexes
 #
