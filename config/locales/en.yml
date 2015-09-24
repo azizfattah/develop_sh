@@ -341,6 +341,7 @@ en:
           this_field_is_required: "This field is required"
           this_field_is_required_checkbox: "This field is required (user has to select at least one option)"
       index:
+        show_price_filter_homepage: "Show price filter on homepage"
         listing_fields: "Listing fields & filters"
         listing_fields_help: "Here you can edit the fields that users have to fill in when they create a new listing. Please note that some fields are predefined and can not be edited."
         add_new_field: "Add new field:"
