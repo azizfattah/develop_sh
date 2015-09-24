@@ -123,6 +123,7 @@ module ListingIndexService::Search
         category_id: l.category_id,
         comment_count: l.comments_count,
         price: l.price,
+        half_day_price_cent: l.half_day_price_cent,
         unit_tr_key: l.unit_tr_key,
         unit_type: l.unit_type,
         quantity: l.quantity,

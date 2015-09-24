@@ -1,3 +1,9 @@
+= form_for @community, :as => :community, :url => update_price_admin_custom_fields_path, :method => :put do |form|
+  .row
+    .col-12
+      .checkbox-container
+        = form.check_box :show_price_filter
+        = form.label :show_price_filter, t("admin.custom_fields.index.show_price_filter_homepage")
 = form.label :name_attributes, t("admin.custom_fields.index.field_title")
 - available_locales.each do |locale_name, locale_value|
   .row

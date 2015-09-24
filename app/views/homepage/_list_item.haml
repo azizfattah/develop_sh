@@ -19,11 +19,15 @@
 
           - if price_text.present?
             .home-list-price-quantity{:title => price_text}
-              = price_text
+              = price_text  
         - else
           .home-list-listing-shape-value
             = shape_name(listing)
-
+        - if listing.half_day_price_cent != 0
+          .home-list-price-value
+            = humanized_money_with_symbol( Money.new(listing.half_day_price_cent || 0, listing.price.currency || "EUR")).upcase
+          .home-list-price-quantity
+            = "per half-day" 
     %div{:class => (listing.listing_images.size > 0 ? "home-list-details-with-image" : "")}
       %h2.home-list-title
         = link_to listing_path(listing.id) do

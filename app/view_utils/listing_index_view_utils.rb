@@ -11,6 +11,7 @@ module ListingIndexViewUtils
     :description,
     :listing_images,
     :price,
+    :half_day_price_cent,
     :unit_tr_key,
     :unit_type,
     :quantity,
@@ -67,7 +68,6 @@ module ListingIndexViewUtils
         else
           []
         end
-
       ListingItem.new(
         l[:id],
         l[:url],
@@ -79,6 +79,7 @@ module ListingIndexViewUtils
         l[:description],
         listing_images,
         l[:price],
+        l[:half_day_price_cent],
         l[:unit_tr_key],
         l[:unit_type],
         l[:quantity],

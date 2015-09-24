@@ -46,6 +46,7 @@
 #  pickup_enabled                  :boolean          default(FALSE)
 #  shipping_price_cents            :integer
 #  shipping_price_additional_cents :integer
+#  half_day_price_cent             :integer
 #
 # Indexes
 #
@@ -86,6 +87,7 @@ class Listing < ActiveRecord::Base
   belongs_to :category
 
   monetize :price_cents, :allow_nil => true, with_model_currency: :currency
+  monetize :half_day_price_cent, :allow_nil => true, with_model_currency: :currency
   monetize :shipping_price_cents, allow_nil: true, with_model_currency: :currency
   monetize :shipping_price_additional_cents, allow_nil: true, with_model_currency: :currency
 
@@ -122,6 +124,7 @@ class Listing < ActiveRecord::Base
   validates_presence_of :category
   validates_inclusion_of :valid_until, :allow_nil => :true, :in => DateTime.now..DateTime.now + 7.months
   validates_numericality_of :price_cents, :only_integer => true, :greater_than_or_equal_to => 0, :message => "price must be numeric", :allow_nil => true
+  validates_numericality_of :half_day_price_cent, :only_integer => true, :greater_than_or_equal_to => 0, :message => "price must be numeric", :allow_nil => true
 
   def self.currently_open(status="open")
     status = "open" if status.blank?
@@ -221,5 +224,8 @@ class Listing < ActiveRecord::Base
   def unit_type
     Maybe(read_attribute(:unit_type)).to_sym.or_else(nil)
   end
-
+  
+  def half_day
+    Money.new(half_day_price_cent || 0, currency || "EUR")
+  end
 end
