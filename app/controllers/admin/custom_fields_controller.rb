@@ -35,7 +35,7 @@ class Admin::CustomFieldsController < ApplicationController
     # Hack for comma/dot issue. Consider creating an app-wide comma/dot handling mechanism
     params[:custom_field][:min] = ParamsService.parse_float(params[:custom_field][:min]) if params[:custom_field][:min].present?
     params[:custom_field][:max] = ParamsService.parse_float(params[:custom_field][:max]) if params[:custom_field][:max].present?
-
+    @current_community.update_attributes(:show_price_filter=>params[:show_price_filter])
     @custom_field = params[:field_type].constantize.new(params[:custom_field]) #before filter checks valid field types and prevents code injection
     @custom_field.community = @current_community
 
@@ -67,6 +67,7 @@ class Admin::CustomFieldsController < ApplicationController
 
   def update
     @custom_field = CustomField.find(params[:id])
+    @current_community.update_attributes(:show_price_filter=>params[:show_price_filter]) 
 
     # Hack for comma/dot issue. Consider creating an app-wide comma/dot handling mechanism
     params[:custom_field][:min] = ParamsService.parse_float(params[:custom_field][:min]) if params[:custom_field][:min].present?
