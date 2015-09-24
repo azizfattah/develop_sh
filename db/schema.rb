@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150923072843) do
+ActiveRecord::Schema.define(:version => 20150924114131) do
 
   create_table "auth_tokens", :force => true do |t|
     t.string   "token"
@@ -71,8 +71,10 @@ ActiveRecord::Schema.define(:version => 20150923072843) do
     t.integer  "sort_priority"
     t.string   "url"
     t.boolean  "show_on_homepage", :default => true
+    t.string   "ancestry"
   end
 
+  add_index "categories", ["ancestry"], :name => "index_categories_on_ancestry"
   add_index "categories", ["community_id"], :name => "index_categories_on_community_id"
   add_index "categories", ["parent_id"], :name => "index_categories_on_parent_id"
   add_index "categories", ["url"], :name => "index_categories_on_url"

@@ -1,0 +1,8 @@
+= category.display_name(I18n.locale)      
+.edit-delete-pannel
+  = render :partial => "category_action_buttons", :locals => {category: category, category_count: category_count}
+-if category.children.present?
+  - category.children.each do |category|
+    %ul
+      %li
+        = render :partial => "listed_subcategory_of_subcategory", locals: {category_count: category.children.size, :category => category}

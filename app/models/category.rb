@@ -11,9 +11,11 @@
 #  sort_priority    :integer
 #  url              :string(255)
 #  show_on_homepage :boolean          default(TRUE)
+#  ancestry         :string(255)
 #
 # Indexes
 #
+#  index_categories_on_ancestry      (ancestry)
 #  index_categories_on_community_id  (community_id)
 #  index_categories_on_parent_id     (parent_id)
 #  index_categories_on_url           (url)
@@ -32,7 +34,7 @@ class Category < ActiveRecord::Base
   )
 
   attr_accessor :basename
-
+  
   has_many :subcategories, :class_name => "Category", :foreign_key => "parent_id", :dependent => :destroy, :order => "sort_priority"
   # children is a more generic alias for sub categories, used in classification.rb
   has_many :children, :class_name => "Category", :foreign_key => "parent_id", :order => "sort_priority"

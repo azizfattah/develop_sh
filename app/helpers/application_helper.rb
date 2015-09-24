@@ -896,18 +896,25 @@ module ApplicationHelper
     @options=[]
     top_level_categories.each do |c| 
       @options << [c.display_name(I18n.locale), c.id]
-      if c.subcategories.present? 
-        c.subcategories.each do |cc| 
-          @options << ["--"+cc.display_name(I18n.locale), cc.id]
-          if cc.subcategories.present?
-            cc.subcategories.each do |ccc|
-              @options << ["----"+ccc.display_name(I18n.locale), ccc.id]
-            end
-          end
-        end
-      end
+      child c, 1
     end
     @options << @category.parent_id
     @options.compact
+  end
+
+  def child c, i
+    if c.subcategories.present?
+      c.subcategories.each do |cc|
+        @options << [ spaces(i+1) + cc.display_name(I18n.locale), cc.id]
+        child cc, i+1
+      end
+    else
+    end
+  end
+
+  def spaces no
+    space = "-"
+    (1..no).map{|i| space = space+"-" }
+    return space
   end
 end

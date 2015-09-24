@@ -11,9 +11,11 @@
 #  sort_priority    :integer
 #  url              :string(255)
 #  show_on_homepage :boolean          default(TRUE)
+#  ancestry         :string(255)
 #
 # Indexes
 #
+#  index_categories_on_ancestry      (ancestry)
 #  index_categories_on_community_id  (community_id)
 #  index_categories_on_parent_id     (parent_id)
 #  index_categories_on_url           (url)

@@ -1,6 +1,9 @@
-.row.category-row.sub-category-row{:id => "subcategory-#{subcategory.display_name(I18n.locale).squish.downcase.tr(" ","_")}", :data => {:id => subcategory.id } }
-  .col-10.listed-category-col
-    .subcategory-label
-      = subcategory.display_name(I18n.locale)
-  .col-2.listed-category-col
-    = render :partial => "category_action_buttons", :locals => {category: subcategory, category_count: category_count}
+= subcategory.display_name(I18n.locale) 
+.edit-delete-pannel
+  = render :partial => "category_action_buttons", :locals => {category: subcategory, category_count: category_count}
+-if subcategory.children.present?
+  - subcategory.children.each do |sub_of_sub|
+    %ul
+      %li{:id => "category-#{sub_of_sub.display_name(I18n.locale).squish.downcase.tr(" ","_")}", :data => {:id => sub_of_sub.id } }
+        = render :partial => "listed_subcategory_of_subcategory", locals: {category_count: sub_of_sub.children.size, :category => sub_of_sub}
+
