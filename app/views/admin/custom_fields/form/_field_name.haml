@@ -1,11 +1,9 @@
-.row
-  .col-12
-    .checkbox-container
-      -if @current_community.show_price_filter == true
-        = check_box_tag :show_price_filter, 1, {:checked => "checked"}
-      -else
-        = check_box_tag :show_price_filter
-      = label_tag "show_price_filter", t("admin.custom_fields.index.show_price_filter_homepage")
+- if params[:field_type] == "DropdownField" || params[:field_type] == "CheckboxField" || params[:field_type] == "NumericField"
+  .row
+    .col-12
+      .checkbox-container
+        = form.check_box :show_listing_field
+        = form.label :show_price_filter, t("admin.custom_fields.index.show_price_filter_homepage")
 = form.label :name_attributes, t("admin.custom_fields.index.field_title")
 - available_locales.each do |locale_name, locale_value|
   .row

@@ -10,10 +10,8 @@ class HomepageController < ApplicationController
     @homepage = true
 
     @view_type = HomepageController.selected_view_type(params[:view], @current_community.default_browse_view, APP_DEFAULT_VIEW_TYPE, VIEW_TYPES)
-
     @categories = @current_community.categories.includes(:children)
-    #@main_categories = @categories.select { |c| c.parent_id == nil }
-    @main_categories = @categories.where(:parent_id=>nil, :show_on_homepage=>true )
+    @main_categories = @categories.select { |c| c if c.parent_id == nil && c.show_on_homepage == true}
     all_shapes = shapes.get(community_id: @current_community.id)[:data]
 
     # This assumes that we don't never ever have communities with only 1 main share type and
@@ -22,6 +20,7 @@ class HomepageController < ApplicationController
     @show_categories = @categories.size > 1
     show_price_filter = @current_community.show_price_filter && all_shapes.any? { |s| s[:price_enabled] }
     @show_custom_fields = @current_community.custom_fields.any?(&:can_filter?) || show_price_filter
+    @show_custom_update_button = @current_community.custom_fields.where(show_listing_field: true).present?
     @category_menu_enabled = @show_categories || @show_custom_fields
 
     @app_store_badge_filename = "/assets/Available_on_the_App_Store_Badge_en_135x40.svg"

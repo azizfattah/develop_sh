@@ -92,7 +92,7 @@
         .hidden-tablet
           - # Filters will be relocated to #desktop-filters when in desktop
           #filters
-            = render :partial => "filters", :locals => { show_price_filter: show_price_filter, show_custom_fields: @show_custom_fields }
+            = render :partial => "filters", :locals => { show_price_filter: show_price_filter, show_custom_fields: @show_custom_fields,custom_update_button: @show_custom_update_button }
 
   .row
     - if @category_menu_enabled
@@ -105,10 +105,13 @@
                 - show_subcategories = show_subcategory_list(category, Maybe(@selected_category).id.to_i.or_else(nil))
                 = link_to category.display_name(I18n.locale), params.merge({category: category}), :class => "home-categories-main #{if show_subcategories then 'selected' end} #{if category.has_subcategories? then 'has-subcategories' end}", :data => {category: category.id}
                 - if category.children
-                  - if show_subcategories
-                    - category.children.each do |child|
-                      - is_selected = @selected_category == child
-                      = link_to child.display_name(I18n.locale), params.merge({category: child}), :class => "home-categories-sub #{if is_selected then 'selected' end}", :data => {:"sub-category" =>child.id}
+                  / - if show_subcategories
+                  - category.children.each do |child|
+                    - is_selected = @selected_category == child
+                    = link_to child.display_name(I18n.locale), params.merge({category: child}), :class => "home-categories-sub #{if is_selected then 'selected' end}", :data => {:"sub-category" =>child.id}
+                    - if child.children
+                      - child.children.each do |child|
+                        = render :partial => "subcategory_of_subcategory", :as => :child, locals: {child: child}
 
         #desktop-filters
           - # Filters will be relocated here when in desktop

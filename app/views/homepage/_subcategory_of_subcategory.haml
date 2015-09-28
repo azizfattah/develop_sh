@@ -1,0 +1,7 @@
+%ul.subcategory_of_subcategory
+  %li.subcategory_list
+    - is_selected = @selected_category == child
+    = link_to child.display_name(I18n.locale), params.merge({category: child}), :class => "home-categories-sub #{if is_selected then 'selected' end}", :data => {:"sub-category" =>child.id}
+    - if child.children
+      - child.children.each do |child|
+        = render :partial => "subcategory_of_subcategory", :as => :child, locals: {child: child}

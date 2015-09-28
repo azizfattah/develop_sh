@@ -4,6 +4,6 @@
 
   - if show_custom_fields
     = render :partial => "custom_filters"
-
-  %button{type: 'submit'}
-    = t("homepage.custom_filters.update_view")
+  - if custom_update_button  
+    %button{type: 'submit'}
+      = t("homepage.custom_filters.update_view")
